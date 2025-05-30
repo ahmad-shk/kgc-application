@@ -8,6 +8,15 @@ const AboutScreen = () => {
     {
       name: "BTC", pair: "USDC", volume: "273.52M", price: "106,134.01",
       usdPrice: "$106,127.14", change: "-1.43%", isNegative: true,
+    }, {
+      name: "BTC", pair: "USDC", volume: "273.52M", price: "106,134.01",
+      usdPrice: "$106,127.14", change: "-1.43%", isNegative: true,
+    }, {
+      name: "BTC", pair: "USDC", volume: "273.52M", price: "106,134.01",
+      usdPrice: "$106,127.14", change: "-1.43%", isNegative: true,
+    }, {
+      name: "BTC", pair: "USDC", volume: "273.52M", price: "106,134.01",
+      usdPrice: "$106,127.14", change: "-1.43%", isNegative: true,
     },
     {
       name: "ETH", pair: "USDC", volume: "105.14M", price: "2,633.90",
@@ -47,7 +56,7 @@ const AboutScreen = () => {
     <View className="bg-white flex-1">
 
 
-   <Link href={{ pathname: "/" }}>
+      <Link href={{ pathname: "/" }}>
         <Text className="text-blue-500 mt-4">back to Home</Text>
       </Link>
 
