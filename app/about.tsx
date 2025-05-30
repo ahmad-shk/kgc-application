@@ -63,12 +63,7 @@ const AboutScreen = () => {
 
       {/* Header */}
       <View className="flex-row justify-between items-center px-4 py-2">
-        <Text className="text-xs text-gray-600">10:22</Text>
-        <View className="flex-row gap-1">
-          {[...Array(4)].map((_, idx) => (
-            <View key={idx} className="h-3 w-3 rounded-full border border-gray-600 mx-0.5" />
-          ))}
-        </View>
+       
       </View>
 
       {/* Search Bar */}
