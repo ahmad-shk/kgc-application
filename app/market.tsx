@@ -23,6 +23,19 @@ const MarketScreen = () => {
       usdPrice: "$0.9983 USDT", change: "+0.01%", isNegative: false,
     },
     {
+      name: "ETH", pair: "USDC", volume: "105.14M", price: "2,633.90",
+      usdPrice: "$2,633.21", change: "-3.65%", isNegative: true,
+    },
+    {
+      name: "SOL", pair: "USDC", volume: "106.72M", price: "145.57",
+      usdPrice: "$145.52", change: "-3.97%", isNegative: true,
+    },
+
+    {
+      name: "FDUSD", pair: "USDC", volume: "97.62M", price: "0.9984",
+      usdPrice: "$0.9983 USDT", change: "+0.01%", isNegative: false,
+    },
+    {
       name: "BTC", pair: "USDC", volume: "273.52M", price: "106,134.01",
       usdPrice: "$106,127.14", change: "-1.43%", isNegative: true,
     },
@@ -103,7 +116,7 @@ const MarketScreen = () => {
         ))}
       </View>
 
-      <View horizontal showsHorizontalScrollIndicator={false} className="px-2 mt-1 flex-row">
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} className="px-2 mt-1 flex-row">
         {currencyTabs.map(tab => (
           <TouchableOpacity key={tab} onPress={() => setActiveCurrencyTab(tab)}>
             <Text className={`px-3 py-1 text-[10px] rounded-lg ${activeCurrencyTab === tab ? 'font-bold bg-[#ffffff] text-[black]' : 'text-[#a7a7a7]'}`}>
@@ -111,7 +124,7 @@ const MarketScreen = () => {
             </Text>
           </TouchableOpacity>
         ))}
-      </View>
+      </ScrollView>
 
       {/* Header Row */}
       <View className="flex-row justify-between pt-4 pb-2 px-4">
