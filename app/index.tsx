@@ -13,7 +13,7 @@ export default function HomeScreen() {
       </Link>
     </View>
     <View>
-     <BinanceMarketList/>
+     {/* <BinanceMarketList/> */}
     </View>
   </View>
   );
