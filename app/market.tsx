@@ -17,9 +17,22 @@ const MarketScreen = () => {
       name: "SOL", pair: "USDC", volume: "106.72M", price: "145.57",
       usdPrice: "$145.52", change: "-3.97%", isNegative: true,
     },
+    
     {
       name: "FDUSD", pair: "USDC", volume: "97.62M", price: "0.9984",
       usdPrice: "$0.9983 USDT", change: "+0.01%", isNegative: false,
+    },
+     {
+      name: "BTC", pair: "USDC", volume: "273.52M", price: "106,134.01",
+      usdPrice: "$106,127.14", change: "-1.43%", isNegative: true,
+    },
+    {
+      name: "ETH", pair: "USDC", volume: "105.14M", price: "2,633.90",
+      usdPrice: "$2,633.21", change: "-3.65%", isNegative: true,
+    },
+    {
+      name: "SOL", pair: "USDC", volume: "106.72M", price: "145.57",
+      usdPrice: "$145.52", change: "-3.97%", isNegative: true,
     },
   ];
 
