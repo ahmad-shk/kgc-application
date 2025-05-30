@@ -1,5 +1,5 @@
-import { View, Text } from "react-native";
-import { Link } from "expo-router";
+import { View, Text, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -19,6 +19,5 @@ export default function HomeScreen() {
         <Text className="text-white font-medium">Go to Market</Text>
       </TouchableOpacity>
     </View>
-  </View>
   );
 }
