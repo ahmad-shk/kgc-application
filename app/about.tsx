@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, TextInput, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Home, BarChart2, TrendingUp, Grid, Layers, Search } from 'lucide-react-native';
+import { Link } from 'expo-router';
 
 const AboutScreen = () => {
   const cryptoData = [
@@ -44,6 +45,13 @@ const AboutScreen = () => {
 
   return (
     <View className="bg-white flex-1">
+
+
+   <Link href={{ pathname: "/" }}>
+        <Text className="text-blue-500 mt-4">back to Home</Text>
+      </Link>
+
+
       {/* Header */}
       <View className="flex-row justify-between items-center px-4 py-2">
         <Text className="text-xs text-gray-600">10:22</Text>
