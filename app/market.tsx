@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { Home, BarChart2, TrendingUp, Grid, Layers, Search } from 'lucide-react-native';
 import { Link } from 'expo-router';
 
-const AboutScreen = () => {
+const MarketScreen = () => {
   const cryptoData = [
     {
-      name: "BTC", pair: "USDC", volume: "273.52M", price: "106,134.01",
-      usdPrice: "$106,127.14", change: "-1.43%", isNegative: true,
-    }, {
-      name: "BTC", pair: "USDC", volume: "273.52M", price: "106,134.01",
-      usdPrice: "$106,127.14", change: "-1.43%", isNegative: true,
-    }, {
-      name: "BTC", pair: "USDC", volume: "273.52M", price: "106,134.01",
-      usdPrice: "$106,127.14", change: "-1.43%", isNegative: true,
-    }, {
       name: "BTC", pair: "USDC", volume: "273.52M", price: "106,134.01",
       usdPrice: "$106,127.14", change: "-1.43%", isNegative: true,
     },
@@ -29,10 +20,6 @@ const AboutScreen = () => {
     {
       name: "FDUSD", pair: "USDC", volume: "97.62M", price: "0.9984",
       usdPrice: "$0.9983 USDT", change: "+0.01%", isNegative: false,
-    },
-    {
-      name: "SUI", pair: "USDC", volume: "87.45M", price: "3.5011",
-      usdPrice: "$3.5", change: "-3.64%", isNegative: true,
     },
   ];
 
@@ -55,16 +42,9 @@ const AboutScreen = () => {
   return (
     <View className="bg-white flex-1">
 
-
-      <Link href={{ pathname: "/" }}>
-        <Text className="text-blue-500 mt-4">back to Home</Text>
+      <Link href="/">
+        <Text className="text-blue-500 px-4 py-2">← Back to Home</Text>
       </Link>
-
-
-      {/* Header */}
-      <View className="flex-row justify-between items-center px-4 py-2">
-       
-      </View>
 
       {/* Search Bar */}
       <View className="flex-row items-center px-4 py-2">
@@ -116,7 +96,7 @@ const AboutScreen = () => {
         <Text className="text-xs text-gray-500">24h Chg%</Text>
       </View>
 
-      {/* List */}
+      {/* Crypto List */}
       <ScrollView className="px-2 mb-16">
         {cryptoData.map((crypto, idx) => (
           <View key={idx}>
@@ -144,7 +124,7 @@ const AboutScreen = () => {
         ))}
       </ScrollView>
 
-      {/* Bottom Nav */}
+      {/* Bottom Navigation */}
       <View className="absolute bottom-0 left-0 right-0 bg-white border-t flex-row justify-between px-4 py-2">
         {bottomNavItems.map((item, idx) => (
           <View key={idx} className="items-center">
@@ -157,4 +137,4 @@ const AboutScreen = () => {
   );
 };
 
-export default AboutScreen;
+export default MarketScreen;
