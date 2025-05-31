@@ -8,11 +8,14 @@ import { useState } from 'react';
 import CryptoMarketPopup from '@/components/cryptoMarketPopup';
 
 const TrdePanel = () => {
-const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-   const handleNavigate = () => {
-  router.push("/market");
-};
+  const handleNavigate = () => {
+    router.push("/market");
+  };
+  const handleNavigate1 = () => {
+    router.push("/cryptoTradeScreen");
+  };
   return (
     <View className="bg-[#161616] flex-1">
       {/* Header */}
@@ -21,11 +24,11 @@ const [visible, setVisible] = useState(false);
           <ChevronLeft color="white" size={24} />
         </Pressable>
 
-          <Text className="text-[#ffdd1c] font-bold text-lg mr-1">BTC/USDT</Text>
-        
+        <Text className="text-[#ffdd1c] font-bold text-lg mr-1">BTC/USDT</Text>
+
         <Pressable className="flex-row items-center" onPress={() => setVisible(true)}>
           <ChevronDown color="#6B7280" size={20} />
-            <CryptoMarketPopup visible={visible} onClose={() => setVisible(false)} />
+          <CryptoMarketPopup visible={visible} onClose={() => setVisible(false)} />
         </Pressable>
       </View>
 
@@ -39,12 +42,14 @@ const [visible, setVisible] = useState(false);
       {/* Fixed Bottom Buttons */}
       <View className="absolute bottom-4 left-4 right-4 flex-row space-x-4">
         <TouchableOpacity
+          onPress={handleNavigate1}
           className="flex-1 bg-green-600 py-4 rounded-xl items-center shadow-lg"
           activeOpacity={0.8}
         >
           <Text className="text-white font-bold uppercase text-base">Long</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={handleNavigate1}
           className="flex-1 bg-red-600 py-4 rounded-xl items-center shadow-lg"
           activeOpacity={0.8}
         >
