@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { Home, BarChart2, TrendingUp, Grid, Layers, Search } from 'lucide-react-native';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
+import CryptoList from '@/components/cryptoList';
 
 const MarketScreen = () => {
   const cryptoData = [
@@ -64,6 +65,12 @@ const MarketScreen = () => {
   const [activeMainTab, setActiveMainTab] = useState("Market");
   const [activeFilterTab, setActiveFilterTab] = useState("Spot");
   const [activeCurrencyTab, setActiveCurrencyTab] = useState("USDC");
+    const goToTradePage = () => {
+      router.push("/tradPanel");
+    }
+
+
+
 
   return (
     <View className="bg-[#161616] text-[white] flex-1">
@@ -136,34 +143,7 @@ const MarketScreen = () => {
       </View>
 
       {/* Crypto List */}
-      <ScrollView className="px-2 mb-16">
-        {cryptoData.map((crypto, idx) => (
-          <View key={idx} className='text-[#ffdd1c]'>
-            <View className="flex-row justify-between items-center px-2 py-2">
-              <View>
-                <View className="flex-row items-center">
-                  <Text className="font-medium text-[#ffdd1c]">{crypto.name}</Text>
-                  <Text className="text-xs text-[#ffdd1c]">/{crypto.pair}</Text>
-                  <Text className="text-xs ml-1 text-[#ffdd1c]">18h</Text>
-                </View>
-                <Text className="text-xs text-[#ffdd1c]">{crypto.volume}</Text>
-              </View>
-              <View className='flex-row items-center gap-8'>
-                <View className="items-end">
-                  <Text className='text-[#ffdd1c]'>{crypto.price}</Text>
-                  <Text className="text-xs text-[#ffdd1c]">{crypto.usdPrice}</Text>
-                </View>
-                <View>
-                  <Text className={`px-3 py-2 text-xs rounded-lg text-white ${crypto.isNegative ? 'bg-red-500' : 'bg-green-500'}`}>
-                    {crypto.change}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            {idx < cryptoData.length - 1 && <View className="h-px bg-gray-200 mt-2" />}
-          </View>
-        ))}
-      </ScrollView>
+        <CryptoList cryptoData={cryptoData} onPressItem={goToTradePage} />
 
       {/* Bottom Navigation */}
       <View className="absolute bottom-0 left-0 right-0 bg-white border-t flex-row justify-between px-4 py-2">

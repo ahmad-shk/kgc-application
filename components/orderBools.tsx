@@ -60,7 +60,7 @@ const OrderBook = () => {
   const sideWidthClass = screenWidth > 400 ? 'w-[45%]' : 'w-[48%]';
 
   return (
-    <View className="flex-1 bg-black p-4">
+    <View className="flex-1 bg-[#161616] p-4">
       <View className="flex-row mb-2">
         <Pressable className="mr-4 border-b-2 border-white pb-1">
           <Text className="text-white font-bold">Order Book</Text>
