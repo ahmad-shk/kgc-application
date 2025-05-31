@@ -156,10 +156,9 @@ export default function CryptoTradeScreen() {
                     <TouchableOpacity
                         key={tab}
                         onPress={() => setSelectedTab(tab)}
-                        className={`px-4 py-2 mr-2 rounded-full border ${selectedTab === tab ? 'border-black bg-black' : 'border-gray-300'
-                            }`}
+                        className='px-4 py-2'       
                     >
-                        <Text className={`${selectedTab === tab ? 'text-white' : 'text-gray-700'}`}>{tab}</Text>
+                        <Text className={`${selectedTab === tab ? 'text-[#000000]' : 'text-[#9c9c9c]'}`}>{tab}</Text>
                     </TouchableOpacity>
                 ))}
             </View>
