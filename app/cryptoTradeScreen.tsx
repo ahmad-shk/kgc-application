@@ -114,9 +114,10 @@
 
 
 
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { Button } from '@react-navigation/elements';
 
 const mockSellOrders = [
     { price: '106,199.98', amount: '0.00010' },
@@ -144,138 +145,253 @@ export default function CryptoTradeScreen() {
     const [orderType, setOrderType] = useState('Limit');
     const [price, setPrice] = useState(106166.0);
     const [amount, setAmount] = useState(0.00005);
+    const [checked1, setChecked1] = useState(false);
+    const [checked2, setChecked2] = useState(false);
+
+    const renderCheckbox = (checked, onPress, label) => (
+        <TouchableOpacity
+            onPress={onPress}
+            style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}
+        >
+            <View
+                style={{
+                    height: 20,
+                    width: 20,
+                    borderRadius: 4,
+                    borderWidth: 2,
+                    borderColor: '#333',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginRight: 10,
+                }}
+            >
+                {checked && (
+                    <View
+                        style={{
+                            height: 12,
+                            width: 12,
+                            backgroundColor: 'yellow',
+                            borderRadius: 2,
+                        }}
+                    />
+                )}
+            </View>
+            <Text className='text-[white]'>{label}</Text>
+        </TouchableOpacity>
+    );
 
     const increment = (setter, value, step) => setter((parseFloat(value) + step).toFixed(5));
     const decrement = (setter, value, step) => setter((parseFloat(value) - step).toFixed(5));
 
     return (
-        <View className="bg-white p-4">
+        <View className="bg-[#161616] p-4">
             {/* Header Tabs */}
-            <View className="flex-row">
+            <View className="flex-row pb-4">
                 {['Convert', 'Spot', 'Margin', 'Buy/Sell'].map((tab) => (
                     <TouchableOpacity
                         key={tab}
                         onPress={() => setSelectedTab(tab)}
-                        className='px-4 py-2'       
+                        className='pr-4 py-2'
                     >
-                        <Text className={`${selectedTab === tab ? 'text-[#000000]' : 'text-[#9c9c9c]'}`}>{tab}</Text>
+                        <Text className={`${selectedTab === tab ? 'text-[#ffffff]' : 'text-[#9c9c9c]'}`}>{tab}</Text>
                     </TouchableOpacity>
                 ))}
             </View>
 
             {/* Pair and 24h Stats */}
-            <View className="flex-row justify-between items-center mb-2">
-                <Text className="text-xl font-semibold">BTC/USDC</Text>
+            <View className="flex-row justify-between items-center pb-4">
+                <View>
+                    <Text className="text-[20px] font-semibold text-[yellow]">BTC/USDC</Text>
+                    <Text className="text-[10px] text-red-500">-1.37%</Text>
+                </View>
                 <View className="items-end">
-                    <Text className="text-lg font-semibold text-black">106,166.00</Text>
-                    <Text className="text-sm text-red-500">-1.37%</Text>
+                    <Text className="ml-2 text-lg text-[#ffffff]">•••</Text>
                 </View>
             </View>
-           <View className='flex-row'>
-            <View>
-                {/* Buy/Sell Toggle */}
-                <View className="flex-row mb-3">
-                    {['Buy', 'Sell'].map((type) => (
-                        <TouchableOpacity
-                            key={type}
-                            onPress={() => setSide(type)}
-                            className={`flex-1 py-2 mx-1 rounded-full ${side === type ? (type === 'Buy' ? 'bg-green-500' : 'bg-red-500') : 'bg-gray-200'
-                                }`}
-                        >
-                            <Text className={`text-center font-bold ${side === type ? 'text-white' : 'text-black'}`}>
-                                {type}
-                            </Text>
-                        </TouchableOpacity>
+            <View className='flex-row justify-between'>
+                <View>
+                    {/* Buy/Sell Toggle */}
+                    <View className="flex-row mb-3">
+                        {['Buy', 'Sell'].map((type) => (
+                            <TouchableOpacity
+                                key={type}
+                                onPress={() => setSide(type)}
+                                className={`flex-1 py-2 rounded-lg ${side === type ? (type === 'Buy' ? 'bg-green-500' : 'bg-red-500') : 'bg-gray-200'
+                                    }`}
+                            >
+                                <Text className={`text-center font-bold ${side === type ? 'text-white' : 'text-black'}`}>
+                                    {type}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+
+                    {/* Order Type Picker */}
+                    <View className="bg-gray-100 rounded-md mb-3 p-3 ">
+                        <Picker selectedValue={orderType} onValueChange={setOrderType} className='outline-none'>
+                            <Picker.Item label="Limit" value="Limit" />
+                            <Picker.Item label="Market" value="Market" />
+                            <Picker.Item label="Stop Limit" value="StopLimit" />
+                        </Picker>
+                    </View>
+
+                    {/* Price Input */}
+                    <View className="mb-3 outline-none border-none bg-gray-100 rounded-lg">
+                        <View className="flex-row items-center justify-between border rounded-md px-2 py-1 outline-none border-none">
+                            <TouchableOpacity onPress={() => decrement(setPrice, price, 0.01)} className="px-2">
+                                <Text className="text-lg">-</Text>
+                            </TouchableOpacity>
+
+                            <View>
+                                <TextInput
+                                    value={'price (USDC)'}
+                                    className='outline-none disable text-center text-[8px] text-[gray]'
+                                />
+                                <TextInput
+                                    keyboardType="numeric"
+                                    value={price.toString()}
+                                    onChangeText={(text) => setPrice(parseFloat(text) || 0)}
+                                    className="text-center outline-none text-black"
+                                />
+                            </View>
+
+                            <TouchableOpacity onPress={() => increment(setPrice, price, 0.01)} className="px-2">
+                                <Text className="text-lg">+</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    {/* Amount Input */}
+                    <View className="mb-3 outline-none border-none bg-gray-100 rounded-lg">
+                        <View className="flex-row items-center justify-between border rounded-md px-2 py-1 outline-none border-none">
+                            <TouchableOpacity onPress={() => decrement(setPrice, price, 0.01)} className="px-2">
+                                <Text className="text-lg">-</Text>
+                            </TouchableOpacity>
+
+                            <View>
+                                <TextInput
+                                    value={'Amount (BTC)'}
+                                    className='outline-none disable text-center text-[8px] text-[gray]'
+                                />
+                                <TextInput
+                                    keyboardType="numeric"
+                                    value={price.toString()}
+                                    onChangeText={(text) => setPrice(parseFloat(text) || 0)}
+                                    className="text-center outline-none text-black"
+                                />
+                            </View>
+
+                            <TouchableOpacity onPress={() => increment(setPrice, price, 0.01)} className="px-2">
+                                <Text className="text-lg">+</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+
+                    {/* total Input */}
+                    <View className="mb-3 outline-none border-none bg-gray-100 rounded-lg">
+                        <View className="flex-row items-center justify-between border rounded-md px-2 py-1 outline-none border-none">
+                            <TouchableOpacity onPress={() => decrement(setPrice, price, 0.01)} className="px-2">
+                                <Text className="text-lg">-</Text>
+                            </TouchableOpacity>
+
+                            <View>
+                                <TextInput
+                                    value={'Total (USDC)'}
+                                    className='outline-none disable text-center text-[8px] text-[gray]'
+                                />
+                                <TextInput
+                                    keyboardType="numeric"
+                                    value={price.toString()}
+                                    onChangeText={(text) => setPrice(parseFloat(text) || 0)}
+                                    className="text-center outline-none text-black"
+                                />
+                            </View>
+
+                            <TouchableOpacity onPress={() => increment(setPrice, price, 0.01)} className="px-2">
+                                <Text className="text-lg">+</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    {/* two checkboxes */}
+                    <View className='pb-2'>
+                        {renderCheckbox(checked1, () => setChecked1(!checked1), 'TP/SL')}
+                        {renderCheckbox(checked2, () => setChecked2(!checked2), 'Iceberg')}
+                    </View>
+
+                    {/* Balance */}
+                    <View className="mb-3 flex-row justify-between items-center">
+                        <View>
+                            <Text className="text-[white] pb-1">Available</Text>
+                            <Text className="text-[white] pb-1">Max {side}</Text>
+                            <Text className="text-[white] pb-1">Est. Fee</Text>
+                        </View>
+                        <View>
+                            <Text className="text-[yellow] pb-1 text-right">0 USDC</Text>
+                            <Text className="text-[yellow] pb-1 text-right">0 BTC</Text>
+                            <Text className="text-[yellow] pb-1 text-right">0.00000003 BTC</Text>
+                        </View>
+                    </View>
+
+                    {/* Buy/Sell Button */}
+                    <TouchableOpacity
+                        className={`py-2 rounded-md items-center mb-4 ${side === 'Buy' ? 'bg-green-500' : 'bg-red-500'}`}
+                    >
+                        <Text className="text-[white] font-bold text-lg">{side} BTC</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* Order Book */}
+                <View className='flex-col justify-between'>
+                    {[...mockSellOrders].reverse().map((item, index) => (
+                        <View key={`sell-${index}`} className="flex-row justify-between gap-4">
+                            <Text className="text-red-500 text-xs">{item.price}</Text>
+                            <Text className="text-white text-xs">{item.amount}</Text>
+                        </View>
                     ))}
-                </View>
-
-                {/* Order Type Picker */}
-                <View className="bg-gray-100 rounded-md mb-3">
-                    <Picker selectedValue={orderType} onValueChange={setOrderType}>
-                        <Picker.Item label="Limit" value="Limit" />
-                        <Picker.Item label="Market" value="Market" />
-                        <Picker.Item label="Stop Limit" value="StopLimit" />
-                    </Picker>
-                </View>
-
-                {/* Price Input */}
-                <View className="mb-3">
-                    <Text className="text-gray-600 mb-1">Price (USDC)</Text>
-                    <View className="flex-row items-center border rounded-md px-2 py-1">
-                        <TextInput
-                            keyboardType="numeric"
-                            value={price.toString()}
-                            onChangeText={(text) => setPrice(parseFloat(text) || 0)}
-                            className="flex-1 text-black"
-                        />
-                        <TouchableOpacity onPress={() => decrement(setPrice, price, 0.01)} className="px-2">
-                            <Text className="text-lg">-</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => increment(setPrice, price, 0.01)} className="px-2">
-                            <Text className="text-lg">+</Text>
-                        </TouchableOpacity>
+                    <View className="py-2 items-center">
+                        <Text className="text-sm font-semibold text-green-500">106,166.00</Text>
+                    </View>
+                    {mockBuyOrders.map((item, index) => (
+                        <View key={`buy-${index}`} className="flex-row justify-between">
+                            <Text className="text-green-500 text-xs">{item.price}</Text>
+                            <Text className="text-white text-xs">{item.amount}</Text>
+                        </View>
+                    ))}
+                    <View className="bg-gray-100 rounded-md p-1">
+                        <Picker selectedValue={orderType} onValueChange={setOrderType} className='outline-none text-[10px]'>
+                            <Picker.Item label="0.01" value="Limit" />
+                            <Picker.Item label="Market" value="Market" />
+                            <Picker.Item label="Stop Limit" value="StopLimit" />
+                        </Picker>
                     </View>
                 </View>
-
-                {/* Amount Input */}
-                <View className="mb-3">
-                    <Text className="text-gray-600 mb-1">Amount (BTC)</Text>
-                    <View className="flex-row items-center border rounded-md px-2 py-1">
-                        <TextInput
-                            keyboardType="numeric"
-                            value={amount.toString()}
-                            onChangeText={(text) => setAmount(parseFloat(text) || 0)}
-                            className="flex-1 text-black"
-                        />
-                        <TouchableOpacity onPress={() => decrement(setAmount, amount, 0.00001)} className="px-2">
-                            <Text className="text-lg">-</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => increment(setAmount, amount, 0.00001)} className="px-2">
-                            <Text className="text-lg">+</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                {/* Total */}
-                <View className="bg-gray-100 p-3 rounded-md mb-3">
-                    <Text className="text-gray-600">Total (USDC)</Text>
-                    <Text className="text-black font-bold">{(price * amount).toFixed(2)}</Text>
-                </View>
-
-                {/* Balance */}
-                <View className="mb-3">
-                    <Text className="text-gray-500">Available: 0 USDC</Text>
-                    <Text className="text-gray-500">Max {side}: 0 BTC</Text>
-                    <Text className="text-gray-500">Est. Fee: 0.00000003 BTC</Text>
-                </View>
-
-                {/* Buy/Sell Button */}
+            </View>
+            <View className="flex-row pt-4 border-b border-[#e9e9e9]">
+                {['Open orders(0)', 'Holdings(0)'].map((tab) => (
+                    <TouchableOpacity
+                        key={tab}
+                        onPress={() => setSelectedTab(tab)}
+                        className='pr-4 py-2'
+                    >
+                        <Text className={`${selectedTab === tab ? 'text-[#ffffff]' : 'text-[#9c9c9c]'}`}>{tab}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
+            <View className='py-8 flex-col gap-2 justify-center items-center'>
+                <Text className='text-center text-[18px] font-semibold pb-2 text-[#ffffff]'>
+                    Available funds: 0.003
+                </Text>
+                <Text className='text-center text-[#ffffff]'>
+                    Transfer funds to spot wallet
+                </Text>
                 <TouchableOpacity
-                    className={`py-4 rounded-md items-center mb-4 ${side === 'Buy' ? 'bg-green-500' : 'bg-red-500'}`}
-                >
-                    <Text className="text-white font-bold text-lg">{side} BTC</Text>
+                        className='px-4 py-2 w-fit text-center bg-[#817400] rounded-lg'
+                    >
+                        <Text className='text-center text-[white]'>Increase balance</Text>
                 </TouchableOpacity>
             </View>
-
-            {/* Order Book */}
-            <View>
-                {[...mockSellOrders].reverse().map((item, index) => (
-                    <View key={`sell-${index}`} className="flex-row justify-between">
-                        <Text className="text-red-500 text-xs">{item.price}</Text>
-                        <Text className="text-gray-700 text-xs">{item.amount}</Text>
-                    </View>
-                ))}
-                <View className="my-2 border-t border-b py-1 items-center">
-                    <Text className="text-sm font-semibold text-black">106,166.00</Text>
-                </View>
-                {mockBuyOrders.map((item, index) => (
-                    <View key={`buy-${index}`} className="flex-row justify-between">
-                        <Text className="text-green-500 text-xs">{item.price}</Text>
-                        <Text className="text-gray-700 text-xs">{item.amount}</Text>
-                    </View>
-                ))}
-            </View>
-        </View>
         </View>
     );
 }
