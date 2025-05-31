@@ -1,3 +1,4 @@
+import OrderBook from '@/components/orderBools';
 import { Link } from 'expo-router';
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Switch } from 'react-native';
@@ -70,7 +71,7 @@ const CryptoTradeScreen = () => {
             </TouchableOpacity>
 
             {/* Order Book */}
-            <View className="mt-8">
+            {/* <View className="mt-8">
                 <Text className="font-bold text-base mb-2">Order Book</Text>
 
                 {[
@@ -95,7 +96,8 @@ const CryptoTradeScreen = () => {
                         <Text>{item.amount}</Text>
                     </View>
                 ))}
-            </View>
+            </View> */}
+            <OrderBook/>
         </ScrollView>
     );
 };
