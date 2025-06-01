@@ -6,6 +6,7 @@ import OrderBook from '@/components/orderBools';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import CryptoMarketPopup from '@/components/cryptoMarketPopup';
+import TradingChart from '../components/tradingChart';
 
 const TrdePanel = () => {
   const [visible, setVisible] = useState(false);
@@ -36,6 +37,7 @@ const TrdePanel = () => {
       {/* Main Content */}
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <CryptoSummary />
+        <TradingChart />
         <OrderBook />
       </ScrollView>
 
